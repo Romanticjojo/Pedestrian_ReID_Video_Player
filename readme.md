@@ -2,7 +2,7 @@
 
 #### This is a Pedestrian ReID Video Player
 
-#### The video player was built with PyQT QTGui OpenCV
+#### The video player was built with PyQT5 QTGui OpenCV
 
 #### The Algorithm and Model were built with YOLOV3
 
@@ -25,6 +25,10 @@ As shown, the UI includes several video player functions, which includes several
 7. Send
 8. FPS_Control_pannel
 9. Progress Bar
+
+1. #### Browse
+
+Browse button is to browse 
 
 ### The final result as follows
 
