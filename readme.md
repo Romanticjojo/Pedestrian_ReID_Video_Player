@@ -30,7 +30,7 @@ As shown, the UI includes several video player functions, which includes several
 
 Browse button is to browse 
 
-### The final result as follows
+### The final result was shown as follows
 
 
 
