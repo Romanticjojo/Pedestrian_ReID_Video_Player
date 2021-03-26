@@ -24,13 +24,11 @@ As shown, the UI includes several video player functions, which includes several
 6. Video2pics
 7. Send
 8. FPS_Control_pannel
-9. Progress Bar
-
-1. #### Browse
-
-Browse button is to browse 
+9. Progress Bar 
 
 ### The final result was shown as follows
+
+
 
 
 

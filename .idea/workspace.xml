@@ -47,7 +47,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.video2frame">
     <configuration name="client1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="player" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -233,6 +233,9 @@
       <workItem from="1609643035544" duration="2000" />
       <workItem from="1609643068338" duration="1486000" />
       <workItem from="1612817507563" duration="601000" />
+      <workItem from="1613790836481" duration="490000" />
+      <workItem from="1616569706828" duration="1509000" />
+      <workItem from="1616759894481" duration="634000" />
     </task>
     <servers />
   </component>
@@ -240,6 +243,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="555" y="245" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616572557724">
+      <screen x="0" y="25" width="1440" height="826" />
+    </state>
+    <state x="555" y="245" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1440.826@0.25.1440.826" timestamp="1616572557724" />
     <state x="229" y="75" key="SettingsEditor" timestamp="1609452253233">
       <screen x="0" y="25" width="1440" height="826" />
     </state>
