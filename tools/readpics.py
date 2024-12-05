@@ -3,7 +3,7 @@ import os
 import cv2
 
 def readpics(directory_name):
-    for filename in os.listdir(r"./"+directory_name):
+    for filename in os.listdir(r"../"+directory_name):
 
         if (filename.endswith(".jpg")):
 
@@ -20,5 +20,7 @@ def readpics(directory_name):
                 break
 
 
-readpics("Basketball/img")
-cv2.destroyAllWindows()
+if __name__ == '__main__':
+    readpics("Basketball/img")
+    cv2.destroyAllWindows()
+

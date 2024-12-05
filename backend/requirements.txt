@@ -1,0 +1,13 @@
+Flask==2.0.1
+torch==1.9.0
+torchvision==0.10.0
+torchaudio==0.9.0
+numpy==1.21.0
+opencv-python==4.5.3.56
+ultralytics==8.0.20
+pymysql==1.0.2
+Flask-Cors==3.0.10
+Flask-SQLAlchemy==2.5.1
+requests==2.25.1
+scipy==1.7.0
+Pillow==8.2.0

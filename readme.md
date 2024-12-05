@@ -1,34 +1,112 @@
-# Pedestrian ReID Video Player
+# 行人重识别视频播放器(基于PyQT5、QTGui、OpenCV和YOLO构建)
 
-#### This is a Pedestrian ReID Video Player
+## 前端界面功能
 
-#### The video player was built with PyQT5 QTGui OpenCV
+如图所示，界面包含多个视频播放器功能，包括以下几个按钮：
 
-#### The Algorithm and Model were built with YOLOV3
+1. **浏览**：打开文件对话框，选择视频文件。
+2. **播放**：开始播放视频。
+3. **暂停**：暂停视频播放。
+4. **停止**：停止视频播放。
+5. **加速播放**：以双倍速度播放视频。
+6. **视频转图片**：将视频转换为图片帧。
+7. **发送**：将当前帧发送到服务器进行处理。
+8. **帧率控制面板**：选择视频播放的帧率（如10fps、15fps、20fps、25fps、30fps）。
+9. **进度条**：显示和控制视频播放进度。
 
-### The Video_Player_UI as follows
+### 安装和运行
 
-![](./Screenshots/UI_Screenshot.png)
+#### 依赖项
 
+请确保已安装以下依赖项：
 
+- Python 3.8
+- PyQt5
+- OpenCV
+- requests
 
-### UI Function
+可以使用以下命令安装依赖项：
 
-As shown, the UI includes several video player functions, which includes several buttons as follows:
+```bash
+pip install pyqt5 opencv-python requests
+```
 
-1. Browse
-2. Play
-3. Pause
-4. Stop
-5. Double (Speed)
-6. Video2pics
-7. Send
-8. FPS_Control_pannel
-9. Progress Bar 
+### 运行
 
-### The final result was shown as follows
+克隆此仓库并运行 `main.py` 文件：
 
+### 服务器配置
 
+需要一个服务器来处理行人重识别。请确保服务器已启动并运行。默认服务器地址为 `http://116.62.128.207:6060`。你可以在 `client.py` 文件中修改服务器地址。
 
+### 文件说明
 
+- `main.py`：主程序文件，包含图形用户界面和视频播放控制逻辑。
+- `client.py`：客户端文件，负责与服务器通信，发送图像数据并接收处理结果。
+- `video2frame.py`：将视频转换为图片帧的工具。
+- `poseVideo.ui`：Qt Designer 生成的用户界面文件。
 
+### 功能描述
+
+- **视频播放**：支持播放、暂停、停止和加速播放视频。
+- **视频转图片**：将视频转换为图片帧，便于进一步处理。
+- **行人重识别**：将视频帧发送到服务器进行行人重识别，并在视频中绘制检测到的人员边界框。
+- **帧率控制**：用户可以选择不同的帧率来控制视频播放速度。
+
+### 具体实现功能
+
+#### main.py
+
+- 创建基于 PyQt5 的图形用户界面，用于播放和处理视频。
+- 加载 UI 文件，设置窗口标题。
+- 创建定时器，用于控制视频播放的帧率。
+- 设置按钮点击回调函数，实现播放、暂停、停止、浏览文件等功能。
+- 根据用户选择的帧率调整定时器的间隔时间。
+- 打开文件对话框，选择视频文件，并初始化视频捕获对象。
+- 实现播放、暂停、停止视频的功能。
+- 根据滑动条的值跳转到指定帧。
+
+#### client.py
+
+- 将 OpenCV 图像编码为 base64 字符串。
+- 将编码后的图像数据发送到服务器，并接收服务器返回的处理结果。
+- 在图像上绘制检测到的人员边界框。
+- 读取视频帧，调用 `detect_person_reid` 函数进行人员重识别，并在图像上绘制检测结果。
+- 发送 ping 请求和重新初始化请求到服务器。
+
+#### video2frame.py (工具)
+
+- 将视频转换为图片帧。
+- 列出文件夹下所有的视频文件。
+- 初始化一个 VideoCapture 对象，遍历所有文件。
+- 每隔指定帧数截取一帧，并保存为图片。
+
+## 服务器后端功能
+
+### 文件说明
+
+- `server.py`：使用 Flask 框架创建 HTTP 服务器；使用 YOLO 模型进行行人检测，并返回检测结果
+
+### 功能描述
+
+- **模型加载**：加载 YOLO 模型和配置文件。
+- **行人检测**：处理客户端发送的图像数据，进行行人检测。
+
+### 具体实现功能
+
+#### server.py
+
+- 使用 Flask 创建 HTTP 服务器，监听客户端请求。
+- 加载 YOLO 模型和配置文件，用于行人检测。
+- 接收客户端发送的图像数据。
+- 将接收到的 base64 编码图像解码为 OpenCV 图像格式。
+- 服务器健康检查。
+- 处理异常情况，返回相应的错误信息。
+
+### 贡献
+
+欢迎贡献代码和提出建议。请提交 pull request 或创建 issue。
+
+### 许可证
+
+此项目使用 MIT 许可证。

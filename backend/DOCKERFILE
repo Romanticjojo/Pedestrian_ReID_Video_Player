@@ -1,0 +1,17 @@
+# 使用官方 Python 3.8 镜像
+FROM python:3.8
+
+# 设置容器中的工作目录
+WORKDIR /home/ReID_server
+
+# 将当前目录的内容复制到容器中的 /home/ReID_server 目录
+COPY . /home/ReID_server
+
+# 安装 requirements.txt 中指定的所有需要的包
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 使端口 8080 对外界开放
+EXPOSE 8080
+
+# 当容器启动时运行 server.py
+CMD ["python", "server.py"]

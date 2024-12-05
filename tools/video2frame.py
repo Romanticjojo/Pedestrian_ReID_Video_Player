@@ -2,13 +2,12 @@ import cv2
 import os
 import sys
 
-
-def video2frame():
 # 第一个输入参数是包含视频片段的路径
-    input_path = "/Users/danieltang/Downloads/player/video"
-
+input_path = "/Users/danieltang/Downloads/player/video"
 # 第二个输入参数是设定每隔多少帧截取一帧
-    frame_interval = 1
+frame_interval = 1
+
+def video2frame(input_path, frame_interval):
 
 # 列出文件夹下所有的视频文件
     filenames = os.listdir(input_path)
@@ -17,7 +16,7 @@ def video2frame():
     video_prefix = input_path.split(os.sep)[-1]
 
 # 建立一个新的文件夹，名称为原文件夹名称后加上_frames
-    frame_path = '{}_frames'.format(input_path)
+    frame_path = '../output/{}_frames'.format(input_path)
     if not os.path.exists(frame_path):
         os.mkdir(frame_path)
 
@@ -48,9 +47,5 @@ def video2frame():
     cap.release()
 
 
-def main():
-    video2frame()
-
-
 if __name__ == '__main__':
-    main()
+    video2frame("/Users/danieltang/Downloads/player/video", 1)

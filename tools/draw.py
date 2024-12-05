@@ -23,12 +23,12 @@ def on_mouse(event, x, y, flags, param):
         width = abs(point1[0] - point2[0])
         height = abs(point1[1] - point2[1])
         cut_img = img[min_y:min_y + height, min_x:min_x + width]
-        #cv2.imwrite('0001.jpg', cut_img)
+        #cv2.imwrite('../output/0001.jpg', cut_img)
 
 
 def main():
     global img
-    img = cv2.imread('0001.jpg')
+    img = cv2.imread('../output/00001.jpg')
     cv2.namedWindow('image')
     cv2.setMouseCallback('image', on_mouse)
     cv2.imshow('image', img)

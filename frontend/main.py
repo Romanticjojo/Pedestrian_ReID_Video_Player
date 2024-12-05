@@ -10,24 +10,29 @@ import cv2
 import requests
 import base64
 from client import detect_person_reid, plot_one_box
+import json
 
+# 获取当前文件的目录
 BASE_DIR = os.path.dirname(__file__)
+# 将目录中的反斜杠替换为正斜杠
 path = BASE_DIR.replace('\\'[0], '/')
+# 定义选择颜色
 selectcolor = [255, 0, 0]
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        loadUi('/Users/danieltang/Downloads/Pedestrian Re-ID Software/poseVideo.ui', self)
+        # 加载UI文件
+        loadUi('./poseVideo.ui', self)
         self.setWindowTitle('Video Player')
-        # create a timer
+        # 创建定时器
         self.timer = QTimer()
         self.timer2 = QTimer()
-        # set timer timeout callback function
+        # 设置定时器超时回调函数
         self.timer.timeout.connect(self.playVideo)
         self.timer2.timeout.connect(self.playVideo2)
-        # set control_bt callback clicked  function
-        #screen 1
+        # 设置按钮点击回调函数
+        # 屏幕1
         self.playButton.clicked.connect(self.playTimer)
         self.pauseButton.clicked.connect(self.stopTimer)
         self.video2picsButton.clicked.connect(self.video2frame)
@@ -38,7 +43,7 @@ class MainWindow(QMainWindow):
         self.slider.valueChanged.connect(self.skipFrame)
         self.comboBox.activated[str].connect(self.fpschange)
 
-        #screen2
+        # 屏幕2
         self.playButton2.clicked.connect(self.playTimer2)
         self.pauseButton2.clicked.connect(self.stopTimer2)
         self.stopButton2.clicked.connect(self.videostop2)
@@ -47,22 +52,25 @@ class MainWindow(QMainWindow):
         self.slider2.valueChanged.connect(self.skipFrame2)
         self.comboBox2.activated[str].connect(self.fpschange2)
 
+        # 初始化停止读取标志
         self.stopread = False
         self.stopread2 = False
+        # 设置发送按钮点击回调函数
         self.sendButton.clicked.connect(self.Send)
 
         # self.ReIDButton.clicked.connect(self.ReID)
 
     def fpschange(self, text):
-        if text=="10fps":
+        # 根据选择的帧率调整定时器
+        if text == "10fps":
             self.timer.stop()
             fps = 10
             self.timer.start(1000 / fps)
-        elif text=="15fps":
+        elif text == "15fps":
             self.timer.stop()
             fps = 15
             self.timer.start(1000 / fps)
-        elif text=="20fps":
+        elif text == "20fps":
             self.timer.stop()
             fps = 20
             self.timer.start(1000 / fps)
@@ -121,7 +129,7 @@ class MainWindow(QMainWindow):
         #
         #     image = cv2.resize(image, (551, 551))
         #     info = {'img': image, 'frame_num': int(self.cap.get(cv2.CAP_PROP_POS_FRAMES))}
-        #     url = "http://www.wujiacloud.top:6060/photo"
+        #     url = "http://116.62.128.207:6060/photo"
         #     succ, people, _ = detect_person_reid(info, url)
         #     if people:
         #         for p in people:
@@ -143,7 +151,7 @@ class MainWindow(QMainWindow):
             # resize image
             image = cv2.resize(image, (551, 551))
             info = {'img': image, 'frame_num': int(self.cap.get(cv2.CAP_PROP_POS_FRAMES))}
-            url = "http://www.wujiacloud.top:6060/mot"
+            url = "http://116.62.128.207:6060/mot"
             succ, people, _ = detect_person_reid(info, url)
             if people:
                 for p in people:
@@ -187,7 +195,7 @@ class MainWindow(QMainWindow):
         #
         #     image = cv2.resize(image, (551, 551))
         #     info = {'img': image, 'frame_num': int(self.cap.get(cv2.CAP_PROP_POS_FRAMES))}
-        #     url = "http://www.wujiacloud.top:6060/photo"
+        #     url = "http://116.62.128.207:6060/photo"
         #     succ, people, _ = detect_person_reid(info, url)
         #     if people:
         #         for p in people:
@@ -209,7 +217,7 @@ class MainWindow(QMainWindow):
             # resize image
             image = cv2.resize(image, (551, 551))
             info = {'img': image, 'frame_num': int(self.cap2.get(cv2.CAP_PROP_POS_FRAMES))}
-            url = "http://www.wujiacloud.top:6060/reid"
+            url = "http://116.62.128.207:6060/reid"
             succ, people, _ = detect_person_reid(info, url)
             if people:
                 for p in people:
@@ -274,7 +282,7 @@ class MainWindow(QMainWindow):
         return result['info'], result['people'], result['frame_num']
 
     def ReID(self):
-        url = "http://www.wujiacloud.top:6060/photo"
+        url = "http://116.62.128.207:6060/photo"
         # url = "http://127.0.0.1:12345/photo"
 
         mot = r'video_frames'
@@ -294,10 +302,10 @@ class MainWindow(QMainWindow):
             cv2.imshow('person search', frame)
             cv2.waitKey(10)
 
-        r = requests.post("http://www.wujiacloud.top:6060/ping")
+        r = requests.post("http://116.62.128.207:6060/ping")
         print(r.content)
 
-        r = requests.post("http://www.wujiacloud.top:6060/reinit_mot")
+        r = requests.post("http://116.62.128.207:6060/reinit_mot")
         print(r.content)
 
     def openFile(self):
@@ -308,13 +316,13 @@ class MainWindow(QMainWindow):
         self.slider.setMinimum(0)
         self.slider.setMaximum(int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT)))
         self.timer.start(1000/fps)
-        # r = requests.post("http://www.wujiacloud.top:6060/ping")
+        # r = requests.post("http://116.62.128.207:6060/ping")
         # print(r.content)
 
-        r = requests.post("http://www.wujiacloud.top:6060/reinit_mot")
+        r = requests.post("http://116.62.128.207:6060/reinit_mot")
         print(r.content)
 
-        r = requests.post("http://www.wujiacloud.top:6060/reinit_query")
+        r = requests.post("http://116.62.128.207:6060/reinit_query")
         print(r.content)
 
     def openFile2(self):
@@ -325,10 +333,10 @@ class MainWindow(QMainWindow):
         self.slider2.setMinimum(0)
         self.slider2.setMaximum(int(self.cap2.get(cv2.CAP_PROP_FRAME_COUNT)))
         self.timer2.start(1000/fps)
-        # r = requests.post("http://www.wujiacloud.top:6060/ping")
+        # r = requests.post("http://116.62.128.207:6060/ping")
         # print(r.content)
 
-        r = requests.post("http://www.wujiacloud.top:6060/update_query")
+        r = requests.post("http://116.62.128.207:6060/update_query")
         print(r.content)
 
     def playTimer(self):
@@ -389,14 +397,14 @@ class MainWindow(QMainWindow):
     #         width = abs(point1[0] - point2[0])
     #         height = abs(point1[1] - point2[1])
     #         cut_img = img[min_y:min_y + height, min_x:min_x + width]
-    #         cv2.imwrite('0001.jpg', cut_img)
+    #         cv2.imwrite('output/00001.jpg', cut_img)
 
     def readpics(self):
         directory_name = "Basketball/img"
-        for filename in os.listdir(r"./" + directory_name):
+        for filename in os.listdir(r"../datasets/" + directory_name):
 
             if (filename.endswith(".jpg")):
-                image = cv2.imread(directory_name + "/" + filename)
+                image = cv2.imread("../datasets/" + directory_name + "/" + filename)
                 image = cv2.resize(image, (551, 551))
                 cv2.imshow("image", image)
 
@@ -409,7 +417,7 @@ class MainWindow(QMainWindow):
 
     def video2frame(self):
         # 第一个输入参数是包含视频片段的路径
-        input_path = "/Users/danieltang/Downloads/player/video"
+        input_path = "../datasets/video"
         # 第二个输入参数是设定每隔多少帧截取一帧
         frame_interval = 1
         # 列出文件夹下所有的视频文件
@@ -455,7 +463,7 @@ class MainWindow(QMainWindow):
             self.stopread = True
             # self.display2.setText("鼠标左键点击！")
             print(event.pos().x(),event.pos().y())
-            url = "http://www.wujiacloud.top:6060/mot"
+            url = "http://116.62.128.207:6060/mot"
         # global box_pos_x1, box_pos_x2, box_pos_y1, box_pos_y2, pedestrian_id
         for p in self.current_frame_p:
             box_pos_x1 = int(p['pos'][0])
@@ -471,7 +479,7 @@ class MainWindow(QMainWindow):
             # image = self.cap.read(int())
                 plot_one_box(p['pos'], self.render_frame, label=str(p['person_id']), color=[255, 255, 0])
         self.timer.start()
-        self.url = "http://www.wujiacloud.top:6060/query_id?id=1&id=3"
+        self.url = "http://116.62.128.207:6060/query_id?id=1&id=3"
         # r = requests.get(url)
         # result = r.content
         # print(result)
